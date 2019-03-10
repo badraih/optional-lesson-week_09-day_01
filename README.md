@@ -229,6 +229,7 @@ You'll need to edit db/migrate/2019xxxxx_create_answers.rb to add default value 
 ````rb
   t.integer :vote,  :default => 0
 ```
+```
 rails db:create
 rails db:migrate
 ```
@@ -245,8 +246,7 @@ rails db:migrate
   get    '/questions/:qID/answers/:aID/edit',      to: 'answers#edit',     as: 'answer_edit'
   put    '/questions/:qID/answers/:aID',           to: 'answers#update',   as: 'answer_update'
   delete '/questions/:qID/answers/:aID',           to: 'answers#destroy',  as: 'answer_destroy'
-  put    '/questions/:qID/answers/:aID/vote-down', to: 'answers#downvote', as: 'downvote_update'
-  put    '/questions/:qID/answers/:aID/vote-up',   to: 'answers#upvote',   as: 'upvote_update'
+  put    '/questions/:qID/answers/:aID/vote', to: 'answers#downvote', as: 'vote_update'
 ````
 
 ### edit the controller
@@ -255,7 +255,7 @@ rails db:migrate
 
 ```
 rails g controller Questions index create
-rails g controller Answers index new create edit update destroy downvote upvote
+rails g controller Answers index new create edit update destroy vote
 ```
 
 # Adding Bootstrap
@@ -276,3 +276,21 @@ bundle install
 
 1. Rename app/assets/stylesheets/application.css to application.scss.
 2. Use the syntax @import to import Sass files and include @import ‘bootstrap’; then save and exit.
+
+# Solving the JS file problem
+
+go to app/views/layouts/application.html.erb and move
+
+```erb
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+```
+
+to the bottom of the body tag
+
+# SKIPING the authenticity_token in the contoller
+
+just add
+
+```
+skip_before_action :verify_authenticity_token
+```
