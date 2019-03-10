@@ -216,13 +216,6 @@ rails g model Question text:string
 rails g model Answer text:string vote:integer question:references
 ```
 
-add :default => 0
-
-```
-rails db:create
-rails db:migrate
-```
-
 You'll need to edit app/models/question.rb to add the other side of the association:
 
 ```rb
@@ -230,6 +223,16 @@ class Question < ApplicationRecord
   has_many :answers
 end
 ```
+
+You'll need to edit db/migrate/2019xxxxx_create_answers.rb to add default value got the vote column
+
+````rb
+  t.integer :vote,  :default => 0
+```
+rails db:create
+rails db:migrate
+```
+
 
 ### Config Routes and Generating Paths and URLs
 
@@ -244,15 +247,14 @@ end
   delete '/questions/:qID/answers/:aID',           to: 'answers#destroy',  as: 'answer_destroy'
   put    '/questions/:qID/answers/:aID/vote-down', to: 'answers#downvote', as: 'downvote_update'
   put    '/questions/:qID/answers/:aID/vote-up',   to: 'answers#upvote',   as: 'upvote_update'
-```
+````
 
 ### edit the controller
 
 ### Generate Controller
 
 ```
-rails g controller Home index
-rails g controller Questions index new create show
+rails g controller Questions index create
 rails g controller Answers index new create edit update destroy downvote upvote
 ```
 
