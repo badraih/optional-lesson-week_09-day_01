@@ -1,0 +1,39 @@
+<%= form_with scope: :question, url: '/questions', :class => 'pt-5', local:true do |form| %>
+  <div class="input-group mb-3">
+    <%= form.text_field :text, :class => 'form-control', :placeholder => 'What is your Question?' %>
+    <div class="input-group-append">
+        <%= form.submit 'Ask', :class => 'btn btn-outline-secondary'%>
+    </div>
+  </div>
+<% end %>
+
+<div class="question container">
+
+  <% @questions.each do |question| %>
+
+    <div class="row">
+
+      <div class="col-2">
+        <%= image_tag 'avatar.png', class: "avatar" %>
+      </div>
+
+      <div class="col-10">
+
+          <%= link_to  answers_index_path(question) do %>
+            <p> <%= question.text %> </p>
+          <% end %>
+
+          <div class="align-right">
+            <small> Asked <strong> <%= question.created_at %> </strong></small>
+          </div>
+      
+      </div>
+
+    </div>
+  <% end %>
+</div>
+
+
+
+
+

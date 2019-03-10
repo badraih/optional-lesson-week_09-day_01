@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>StackClone</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <header class="container-fluid main-header">
+      <%= link_to  question_index_path do %>
+        <%= image_tag 'logo.png', class: "logo" %>
+      <% end %>
+    </header>
+    
+    <div class="container">
+      <%= yield %>
+    </div>
+    
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </body>
+</html>

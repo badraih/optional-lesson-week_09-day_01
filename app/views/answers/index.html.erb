@@ -1,0 +1,73 @@
+<div class="container">
+
+  <div class="question">
+
+    <div class="row">
+
+      <div class="col-2">
+        <%= image_tag 'avatar.png', class: "avatar" %>
+      </div>
+
+      <div class="col-10">
+
+          <p> <%= @question.text %> </p>
+  
+          <div class="align-right">
+            <small> Asked <strong> <%= @question.created_at %> </strong></small>
+          </div>
+      
+      </div>
+
+    </div>
+  </div>
+  <% @answers.each do |answer| %>
+    <div class="row"> 
+
+      <div class="col-2">
+        <div class="answer-voting">
+            
+          <div id=<%=answer.id%> >
+            <span class="icon-vote-up vote" id="up"></span>
+         
+            <strong class="vote-count" id=<%="vote-#{answer.id}" %>><%= answer.vote%></strong>
+ 
+            <span class="icon-vote-down vote" id="down"></span>       
+          </div>
+        </div>
+      </div>
+
+      <div class="col-10">
+   
+        <p><%= answer.text %></p>
+     
+        <div class="align-right">
+          <small>Answered <strong><%= answer.created_at %></strong> |</small> 
+          <small>Modified <strong><%= answer.updated_at %></strong></small>
+          <ul class="horizontal-list"> 
+            <li>
+            <%= link_to'Delete',answer_destroy_path(@question, answer),:method=>:delete,data: { confirm: 'Are you sure?' }%> 
+            </li>
+       
+            <li>  
+              <%= link_to 'Edit', answer_edit_path(@question, answer) %> 
+            </li>
+          </ul>
+      </div>
+
+    </div> 
+  </div> 
+  <% end %>
+
+  <%= form_with scope: :answer, url: answer_create_path(params[:q]) , :class => 'pt-5 form-group', local:true do |form| %>
+
+    <div class="form-group">
+      <label for="answer">Add an answer</label>
+      <%= form.text_area :text, :class => 'form-control', :placeholder => 'What is your Question?', :rows => "3" %>
+    </div>
+    <%= form.hidden_field :question_id, value: params[:q] %>
+    <%= form.submit 'Post an answer', :class => 'btn btn-primary mb-2' %>
+
+  <% end %>
+
+</div>
+

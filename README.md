@@ -226,14 +226,14 @@ end
 
 You'll need to edit db/migrate/2019xxxxx_create_answers.rb to add default value got the vote column
 
-````rb
+```rb
   t.integer :vote,  :default => 0
 ```
+
 ```
 rails db:create
 rails db:migrate
 ```
-
 
 ### Config Routes and Generating Paths and URLs
 
@@ -247,7 +247,7 @@ rails db:migrate
   put    '/questions/:qID/answers/:aID',           to: 'answers#update',   as: 'answer_update'
   delete '/questions/:qID/answers/:aID',           to: 'answers#destroy',  as: 'answer_destroy'
   put    '/questions/:qID/answers/:aID/vote', to: 'answers#downvote', as: 'vote_update'
-````
+```
 
 ### edit the controller
 
